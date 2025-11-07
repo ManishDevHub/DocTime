@@ -1,9 +1,17 @@
 
+interface DocumentIdPageProps {
+  params: Promise <{documentId : string}>;
 
+};
 
+const DocumentIdPage = async ({ params}: DocumentIdPageProps) => {
+  const {documentId} = await params;
 
-export default function DocumentIdPage() {
   return (
-    <div>document Id page</div>
+    <div>
+      Documnet ID : {documentId}
+    </div>
   )
 }
+
+export default DocumentIdPage;
