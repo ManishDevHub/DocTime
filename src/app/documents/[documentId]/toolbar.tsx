@@ -2,7 +2,8 @@
 
 import { useEditorStore } from '@/app/Store/use-editor-store';
 import { cn } from '@/lib/utils';
-import { LucideIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, Undo2Icon } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { BoldIcon, LucideIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, Undo2Icon } from 'lucide-react';
 import React from 'react'
 
 
@@ -58,7 +59,7 @@ const sections: {
             onClick: () => window.print(),
         },
          {
-            lable: "Spell Check",
+            lable: "SpellCheck",
             icon: SpellCheckIcon,
             onClick: () => {
                 const current = editor?.view.dom.getAttribute("spellcheck");
@@ -66,6 +67,15 @@ const sections: {
             },
         },
 
+
+    ],
+    [
+        {
+            lable: "Bold",
+            icon:  BoldIcon,
+            onClick: () => editor?.chain().focus().toggleBold().run(),
+             
+        },
 
     ]
 ]
@@ -76,8 +86,8 @@ const sections: {
         {
             sections[0].map((item) =>(
                 <ToolbarButton key={item.lable} {...item} />
-            ))
-        }
+            )) } 
+        <Separator orientation='vertical' className='h-6 bg-neutral-300' />
         </div>
   )
 }
