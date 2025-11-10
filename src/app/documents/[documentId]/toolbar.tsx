@@ -3,7 +3,7 @@
 import { useEditorStore } from '@/app/Store/use-editor-store';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
-import { BoldIcon, ItalicIcon,  LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, Section, SpellCheckIcon, UnderlineIcon, Undo2Icon } from 'lucide-react';
+import { BoldIcon, ItalicIcon,  LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, Section, SpellCheckIcon, UnderlineIcon, Undo2Icon } from 'lucide-react';
 
 import React from 'react'
 import { isActive } from '@tiptap/core';
@@ -105,6 +105,12 @@ const sections: {
             icon: MessageSquarePlusIcon,
             onClick: () => console.log("TODO: Comment"),
             isActive: false, // Todo Enable this functionality
+        },
+         {
+            lable: "Remove Formating",
+            icon: RemoveFormattingIcon,
+            onClick: () => editor?.chain().focus().unsetAllMarks().run(),
+            isActive: editor?.isActive("taskList"),
         },
         
     ]
