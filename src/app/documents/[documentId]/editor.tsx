@@ -2,7 +2,10 @@
 
 
 import { useEditor, EditorContent } from '@tiptap/react'
+import Image from '@tiptap/extension-image'
 import StarterKit from '@tiptap/starter-kit'
+import { list } from 'postcss'
+import ImageResize from "tiptap-extension-resize-image"
 
 export default function Editor() {
      const editor = useEditor({
@@ -13,7 +16,12 @@ export default function Editor() {
             },
 
         },
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Image,
+      ImageResize,
+       
+    ],
     content: '<p>Hello World! 🌎️</p>',
      })
   return (
