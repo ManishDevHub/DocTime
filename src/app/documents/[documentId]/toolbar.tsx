@@ -3,8 +3,11 @@
 import { useEditorStore } from '@/app/Store/use-editor-store';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
-import { BoldIcon, LucideIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, Undo2Icon } from 'lucide-react';
+import { BoldIcon, ItalicIcon,  LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, Section, SpellCheckIcon, UnderlineIcon, Undo2Icon } from 'lucide-react';
+
 import React from 'react'
+import { isActive } from '@tiptap/core';
+import { Item } from '@radix-ui/react-accordion';
 
 
 interface ToolbarButtonProps {
@@ -15,8 +18,10 @@ interface ToolbarButtonProps {
 
 const ToolbarButton = ({
      onClick,
+   
     isActive,
     icon: Icon,
+   
 }: ToolbarButtonProps) => {
 
     return (
@@ -73,10 +78,35 @@ const sections: {
         {
             lable: "Bold",
             icon:  BoldIcon,
+            isActive: editor?.isActive("bold"),
             onClick: () => editor?.chain().focus().toggleBold().run(),
              
         },
+           {
+            lable: "Italic",
+            icon:  ItalicIcon,
+            isActive: editor?.isActive("italic"),
+            onClick: () => editor?.chain().focus().toggleItalic().run(),
+             
+        },
+          {
+            lable: "Underline",
+            icon:  UnderlineIcon,
+            isActive: editor?.isActive("underline"),
+            onClick: () => editor?.chain().focus().toggleUnderline().run(),
+             
+        },
+        
 
+    ],
+    [
+        {
+            lable: "Comment",
+            icon: MessageSquarePlusIcon,
+            onClick: () => console.log("TODO: Comment"),
+            isActive: false, // Todo Enable this functionality
+        },
+        
     ]
 ]
 
@@ -87,7 +117,36 @@ const sections: {
             sections[0].map((item) =>(
                 <ToolbarButton key={item.lable} {...item} />
             )) } 
+
         <Separator orientation='vertical' className='h-6 bg-neutral-300' />
+        {/* TODO : Font family */}
+        <Separator orientation='vertical' className='h-6 bg-neutral-300' />
+        {/* TODO : Heading */}
+        <Separator orientation='vertical' className='h-6 bg-neutral-300' />
+        {/* TODO : Font Size */}
+        <Separator orientation='vertical' className='h-6 bg-neutral-300' />
+       {sections[1].map((item) => (
+      <button
+        key={item.lable}
+        onClick={item.onClick}
+        className={`p-2 rounded ${item.isActive ? "bg-gray-200" : ""}`}
+      >
+        <item.icon size={18} />
+      </button>
+    ))}
+     {/* TODO : Text Color */}
+      {/* TODO : Highlight color */}
+       <Separator orientation='vertical' className='h-6 bg-neutral-300' />
+       {/* TODO :Link  */}
+        {/* TODO :Image  */}
+         {/* TODO :Aline */}
+          {/* TODO :Line hight  */}
+           {/* TODO :List */}
+ {
+            sections[2].map((item) =>(
+                <ToolbarButton key={item.lable} {...item} />
+            )) } 
+
         </div>
   )
 }
