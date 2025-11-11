@@ -3,10 +3,12 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import Image from '@tiptap/extension-image'
 import StarterKit from '@tiptap/starter-kit'
+
 import { list } from 'postcss'
 import ImageResize from "tiptap-extension-resize-image"
 import { useEditorStore } from '@/app/Store/use-editor-store'
 import Underline from '@tiptap/extension-underline'
+
 
 
 export default function Editor() {
@@ -53,7 +55,10 @@ setEditor(editor);
 
         },
     extensions: [
+      
       StarterKit,
+     
+   
       Image,
       ImageResize,
        Underline,
