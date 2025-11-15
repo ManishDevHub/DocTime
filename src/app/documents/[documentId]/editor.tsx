@@ -10,6 +10,7 @@ import ImageResize from "tiptap-extension-resize-image"
 import { useEditorStore } from '@/app/Store/use-editor-store'
 import Underline from '@tiptap/extension-underline'
 import TextStyle from '@tiptap/extension-text-style'
+import Link from '@tiptap/extension-link'
 
 
 
@@ -57,6 +58,11 @@ setEditor(editor);
 
         },
     extensions: [
+      Link.configure({
+         openOnClick: false,
+         autolink: true,
+         defaultProtocol: 'https'
+      }),
       TextStyle,
       StarterKit,
      Color,
@@ -73,7 +79,7 @@ setEditor(editor);
      })
      
   return (
-    <div className='size-full overflow-x-auto bg-[#e8e9eb] px-4 print:p-0 print: bg-white print:overflow-visible'>
+    <div className='size-full overflow-x-auto bg-[#dfe0e2] px-4 print:p-0 print: bg-white print:overflow-visible'>
        <div className='min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0'>
         <EditorContent className=''  editor={editor}/>
         </div>
