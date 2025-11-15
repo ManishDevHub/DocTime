@@ -10,6 +10,36 @@ import { isActive } from '@tiptap/core';
 import { Item } from '@radix-ui/react-accordion';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { type Level } from "@tiptap/extension-heading";
+import  TextStyle  from '@tiptap/extension-text-style'
+import { type ColorResult, CirclePicker } from 'react-color';
+const TextColorButton = () => {
+  const  { editor} = useEditorStore();
+
+  const value = editor?.getAttributes("textStyle").color || "#000000";
+  const onChange = (color: ColorResult) => {
+    editor?.chain().focus().setColor(color.hex).run();
+  }
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+        className=" h-7 min-w-7 shrink-0 flex items-center flex-col justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+<span className='text-xs'>A</span>
+<div className='h-0.5 w-full' style={{ backgroundColor: value}}/>
+        </button>
+
+      </DropdownMenuTrigger>
+      
+        <DropdownMenuContent className='p-2.5 z-[9999] bg-white shadow-md border rounded-md'>
+          <CirclePicker 
+          color={value}
+          onChange={onChange}
+          />
+
+        </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
 const HeadingLevelButton = () => {
   const { editor } = useEditorStore();
@@ -45,7 +75,7 @@ const HeadingLevelButton = () => {
           <ChevronDownIcon className="ml-2 size-4 shrink-0" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+      <DropdownMenuContent className="p-0.2 flex flex-col gap-y-0.5 z-[9999] bg-white shadow-md border rounded-md">
         {headings.map(({ label, value, fontSize }) => (
           <button
             key={value}
@@ -199,7 +229,7 @@ const sections: {
         <item.icon size={18} />
       </button>
     ))}
-     {/* TODO : Text Color */}
+     <TextColorButton />
       {/* TODO : Highlight color */}
        <Separator orientation='vertical' className='h-6 bg-neutral-300' />
        {/* TODO :Link  */}
