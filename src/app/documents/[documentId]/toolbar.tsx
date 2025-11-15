@@ -3,7 +3,7 @@
 import { useEditorStore } from '@/app/Store/use-editor-store';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
-import { BoldIcon, ChevronDownIcon, ItalicIcon,  LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, Section, SpellCheckIcon, UnderlineIcon, Undo2Icon } from 'lucide-react';
+import { BoldIcon, ChevronDownIcon, HighlighterIcon, ItalicIcon,  LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, Section, SpellCheckIcon, UnderlineIcon, Undo2Icon } from 'lucide-react';
 
 import React from 'react'
 import { isActive } from '@tiptap/core';
@@ -11,7 +11,35 @@ import { Item } from '@radix-ui/react-accordion';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { type Level } from "@tiptap/extension-heading";
 import  TextStyle  from '@tiptap/extension-text-style'
-import { type ColorResult, CirclePicker } from 'react-color';
+import { type ColorResult, SketchPicker } from 'react-color';
+
+const HighLightColorButton = () => {
+  const  { editor} = useEditorStore();
+
+  const value = editor?.getAttributes("highLight").color || "#000000";
+  const onChange = (color: ColorResult) => {
+    editor?.chain().focus().setHighlight( {color: color.hex }).run();
+  }
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+        className=" h-7 min-w-7 shrink-0 flex items-center flex-col justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+<HighlighterIcon className='size-4' />
+        </button>
+
+      </DropdownMenuTrigger>
+      
+        <DropdownMenuContent className='p-0 z-[9999] bg-white shadow-md border rounded-md'>
+          <SketchPicker 
+          color={value}
+          onChange={onChange}
+          />
+
+        </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 const TextColorButton = () => {
   const  { editor} = useEditorStore();
 
@@ -30,8 +58,8 @@ const TextColorButton = () => {
 
       </DropdownMenuTrigger>
       
-        <DropdownMenuContent className='p-2.5 z-[9999] bg-white shadow-md border rounded-md'>
-          <CirclePicker 
+        <DropdownMenuContent className='p-0 z-[9999] bg-white shadow-md border rounded-md'>
+          <SketchPicker 
           color={value}
           onChange={onChange}
           />
@@ -230,7 +258,7 @@ const sections: {
       </button>
     ))}
      <TextColorButton />
-      {/* TODO : Highlight color */}
+      <HighLightColorButton />
        <Separator orientation='vertical' className='h-6 bg-neutral-300' />
        {/* TODO :Link  */}
         {/* TODO :Image  */}
