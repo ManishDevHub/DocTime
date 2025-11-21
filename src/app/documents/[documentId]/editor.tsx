@@ -75,7 +75,7 @@ setEditor(editor);
        Underline,
        
     ],
-    content: '<p>Hello World! this is my first project of webdev 🌎️</p>',
+    content: '<p>Hello World! this is my first project of webdev in next js and tiptap also i added editor🌎️</p>',
      })
      
   return (
